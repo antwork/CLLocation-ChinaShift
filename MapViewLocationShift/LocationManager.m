@@ -31,6 +31,7 @@
 
 - (CLLocation *)userLocation
 {
+    self.currentLocation = nil;
     return self.currentLocation;
 }
 
@@ -59,6 +60,12 @@
     
 }
 
+#pragma mark - location valid checking 
+- (BOOL)isLocationTimeOut
+{
+    NSLog(@"%f",[self.currentLocation.timestamp timeIntervalSinceNow]);
+    return [self.currentLocation.timestamp timeIntervalSinceNow] < -5 ? YES : NO;
+}
 
 
 @end

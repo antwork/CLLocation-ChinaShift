@@ -14,5 +14,6 @@
 + (id)shared;
 - (void)startGetLocation;
 - (CLLocation *)userLocation;
+- (BOOL)isLocationTimeOut;
 
 @end

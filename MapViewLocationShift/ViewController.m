@@ -34,4 +34,11 @@
     mapViewController.location = [[LocationManager shared]userLocation];
     [self.navigationController pushViewController:mapViewController animated:YES];
 }
+
+- (IBAction)refreshLocation:(id)sender {
+    if (![[LocationManager shared]isLocationTimeOut]) {
+        return;
+    }
+    [[LocationManager shared] startGetLocation];
+}
 @end

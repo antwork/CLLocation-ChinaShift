@@ -10,5 +10,6 @@
 
 @interface ViewController : UIViewController
 - (IBAction)printUserLocation:(id)sender;
+- (IBAction)refreshLocation:(id)sender;
 
 @end
