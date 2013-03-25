@@ -30,15 +30,23 @@
 }
 
 - (IBAction)printUserLocation:(id)sender {
-    MapViewController *mapViewController = [[MapViewController alloc]initWithNibName:@"MapViewController" bundle:nil];
-    mapViewController.location = [[LocationManager shared]userLocation];
-    [self.navigationController pushViewController:mapViewController animated:YES];
+    void (^complete) (void) = ^(){
+        MapViewController *mapViewController = [[MapViewController alloc]initWithNibName:@"MapViewController" bundle:nil];
+        mapViewController.location = [[LocationManager shared]userLocation];
+        [self.navigationController pushViewController:mapViewController animated:YES];
+    };
+    [[LocationManager shared]refreshLocation:complete failureBlock:nil];
+    
 }
 
 - (IBAction)refreshLocation:(id)sender {
-    if (![[LocationManager shared]isLocationTimeOut]) {
-        return;
-    }
-    [[LocationManager shared] startGetLocation];
+    void (^complete) (void) = ^(){
+        NSLog(@"get location success");
+    };
+    void (^failure) (void) = ^(){
+        NSLog(@"get location failure");
+    };
+    [[LocationManager  shared]refreshLocation:complete failureBlock:failure];
+    
 }
 @end

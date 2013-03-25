@@ -31,12 +31,12 @@
 
 - (CLLocation *)userLocation
 {
-    self.currentLocation = nil;
     return self.currentLocation;
 }
 
 - (void)startGetLocation
 {
+    self.currentLocation = nil;
     self.mapView.showsUserLocation = YES;
 }
 
@@ -60,11 +60,38 @@
     
 }
 
-#pragma mark - location valid checking 
-- (BOOL)isLocationTimeOut
+- (void)mapView:(MKMapView *)mapView didFailToLocateUserWithError:(NSError *)error
 {
-    NSLog(@"%f",[self.currentLocation.timestamp timeIntervalSinceNow]);
-    return [self.currentLocation.timestamp timeIntervalSinceNow] < -5 ? YES : NO;
+    
+}
+
+#pragma mark - location valid checking 
+- (void)refreshLocation:(success)completeBlock failureBlock:(failure)failureBlock
+{
+    [SVProgressHUD showWithStatus:@"异步执行"];
+    NSDate *timeout = [[NSDate alloc]initWithTimeIntervalSinceNow:15];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self startGetLocation];
+        while (!self.currentLocation && [timeout timeIntervalSinceNow] > 0) {
+            sleep(1);
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+            if (self.currentLocation) {
+                if (completeBlock) {
+                    completeBlock();
+                }
+            }else{
+                if (failureBlock) {
+                    failureBlock();
+                }
+            }
+            
+        });
+        
+    });
+
+    
 }
 
 

@@ -8,12 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^success) ();
+typedef void (^failure) ();
+
 @class CLLocation;
 @interface LocationManager : NSObject
 
 + (id)shared;
 - (void)startGetLocation;
 - (CLLocation *)userLocation;
-- (BOOL)isLocationTimeOut;
+
+- (void)refreshLocation:(success)completeBlock failureBlock:(failure)failureBlock;
 
 @end
