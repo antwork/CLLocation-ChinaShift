@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController
-- (IBAction)printUserLocation:(id)sender;
+- (IBAction)showUserLocation:(id)sender;
 - (IBAction)refreshLocation:(id)sender;
 
 @end

@@ -19,5 +19,6 @@ typedef void (^failure) ();
 - (CLLocation *)userLocation;
 
 - (void)refreshLocation:(success)completeBlock failureBlock:(failure)failureBlock;
+- (BOOL)isLocationTimeout;
 
 @end

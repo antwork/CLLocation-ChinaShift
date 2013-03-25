@@ -40,6 +40,9 @@
     self.mapView.showsUserLocation = YES;
 }
 
+- (BOOL)isLocationTimeout{
+    return [self.currentLocation.timestamp timeIntervalSinceNow] < -10 ? YES :NO;
+}
 #pragma mark - getter
 - (MKMapView *)mapView
 {

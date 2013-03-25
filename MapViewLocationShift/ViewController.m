@@ -29,12 +29,15 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)printUserLocation:(id)sender {
+- (IBAction)showUserLocation:(id)sender {
     void (^complete) (void) = ^(){
         MapViewController *mapViewController = [[MapViewController alloc]initWithNibName:@"MapViewController" bundle:nil];
         mapViewController.location = [[LocationManager shared]userLocation];
         [self.navigationController pushViewController:mapViewController animated:YES];
     };
+    if (![[LocationManager shared]isLocationTimeout]) {
+        complete();
+    }
     [[LocationManager shared]refreshLocation:complete failureBlock:nil];
     
 }
