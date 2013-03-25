@@ -68,7 +68,7 @@
 #pragma mark - location valid checking 
 - (void)refreshLocation:(success)completeBlock failureBlock:(failure)failureBlock
 {
-    [SVProgressHUD showWithStatus:@"异步执行"];
+    [SVProgressHUD showWithStatus:@"正在获取当前经纬度.."];
     NSDate *timeout = [[NSDate alloc]initWithTimeIntervalSinceNow:15];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self startGetLocation];

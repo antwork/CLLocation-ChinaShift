@@ -31,6 +31,9 @@
     MapViewAnnotation *newAnnotation = [[MapViewAnnotation alloc] initWithTitle:@"我的位置" andCoordinate:self.location.coordinate];
 	[self.mapView addAnnotation:newAnnotation];
     self.mapView.showsUserLocation = YES;
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(self.location.coordinate, 1000, 1000);
+    [self.mapView setRegion:region animated:TRUE];
+
 }
 
 - (void)didReceiveMemoryWarning
